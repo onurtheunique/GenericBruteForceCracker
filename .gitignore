@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/GenericBruteForceCracker/cracked.txt
+/GenericBruteForceCracker/mypassfile
+/GenericBruteForceCracker/mypassfile.bak
+/GenericBruteForceCracker/mypassfile_2
+/GenericBruteForceCracker/wordlist
