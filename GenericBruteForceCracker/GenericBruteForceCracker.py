@@ -27,7 +27,7 @@ def Wordlister(Lenght:int,Upper:int,Number:str,charset:str,lang:str):
                         if s!="":
                             for c in charlist:
                                 t.write((str(s)+str(c))+',')
-                        
+                print(lib["donein"]%str(s_time-(time.time())))            
             os.remove('wordlist')
             os.rename('temp.txt','wordlist')
 

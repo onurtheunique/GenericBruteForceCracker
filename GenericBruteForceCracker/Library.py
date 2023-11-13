@@ -13,6 +13,7 @@ def strings(lang:str):
                 "record":"Kullanıcı: %s Parola: %s süre: %s\n",
                 "wordliststatus":"%s karakter adımı oluşturuluyor \n",
                 "wordlistended":"Kelime listesi  %s karakter ile  %s saniyede yaratıldı\n",
+                "donein":"işlem %s saniyede tamamlandı \n",
                 "terminated":"Dosya Bulunamadı!\nProgram Durduruldu....\n"}
         return DictTR
     elif lang.upper()=="ENG":
@@ -28,7 +29,8 @@ def strings(lang:str):
                 "record":"key: %s password: %s cost: %s\n",
                 "wordliststatus":"%s chars list ist started \n",
                 "wordlistended":"Wordlist with %s chars created in %s seconts\n",
-                 "terminated":"File not found!\nProgram terminated....\n",
+                 "terminated":"File not found!\nProgram terminated....\n",              
+                 "donein":"Done! in %s seconds\n",
                  "Cc":"Brute Force Ended\n"}
         return DictENG
     
