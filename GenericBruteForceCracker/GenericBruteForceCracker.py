@@ -102,10 +102,8 @@ def main():
                 if n!="":
                     getn=False                  
             getcs=True
-            while getcs:
-                cs=str(input(lib['charlist']) )  
-                if cs!="":
-                    getcs=False
+            cs=str(input(lib['charlist']) )  
+
             Wordlister(l,u,n,cs,lang)
         elif job==2:
             getkeys=True
