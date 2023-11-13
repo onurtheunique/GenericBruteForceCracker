@@ -11,6 +11,8 @@ def strings(lang:str):
                 "fnf":"Dosya Bulunamadı!\n",
                 "Cc":"Kaba Kuvvet sona erdi\n",
                 "record":"Kullanıcı: %s Parola: %s süre: %s\n",
+                "wordliststatus":"%s karakter adımı oluşturuluyor \n",
+                "wordlistended":"Kelime listesi  %s karakter ile  %s saniyede yaratıldı\n",
                 "terminated":"Dosya Bulunamadı!\nProgram Durduruldu....\n"}
         return DictTR
     elif lang.upper()=="ENG":
@@ -24,6 +26,8 @@ def strings(lang:str):
                 "found":"Password Match",
                  "fnf":"File not found!\n",
                 "record":"key: %s password: %s cost: %s\n",
+                "wordliststatus":"%s chars list ist started \n",
+                "wordlistended":"Wordlist with %s chars created in %s seconts\n",
                  "terminated":"File not found!\nProgram terminated....\n",
                  "Cc":"Brute Force Ended\n"}
         return DictENG

@@ -13,12 +13,14 @@ from base64 import b64encode
 
 def Wordlister(Lenght:int,Upper:int,Number:str,charset:str,lang:str):
     s_time=time.time()
-    charlist=alphabet(Upper,Number,charset,lang)
+    charlist=alphabet(Upper,Number,charset,lang) 
+    lib=Library.strings(lang)
     for i in range(Lenght):
         if i==0:
            with open( 'wordlist','w') as f:
             f.write(','.join(charlist))
         else:
+            print(lib["wordliststatus"]%i)
             with open( 'temp.txt','w') as t: 
                 with open( 'wordlist','r') as f:
                     for s in f.read().split(','):
@@ -30,7 +32,7 @@ def Wordlister(Lenght:int,Upper:int,Number:str,charset:str,lang:str):
             os.rename('temp.txt','wordlist')
 
     cost= (time.time()-s_time)
-    print("Wordlist with "+str(Lenght)+" chars created in "+str(cost)+" seconts" )
+    print(lib["wordlistended"]%(str(Lenght),str(cost)))
 
 
 def BruteForcer(target:str,lang:str):
