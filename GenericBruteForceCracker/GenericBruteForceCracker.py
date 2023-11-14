@@ -34,8 +34,7 @@ def Wordlister(Lenght:int,Upper:int,Number:str,charset:str,lang:str):
     print(lib["wordlistended"]%(str(Lenght),str(cost))) 
 """
 
-#V2
-def Wordlister(Lenght:int,Upper:int,Number:str,charset:str,lang:str,job:int,vers:int):
+def Wordlister(Lenght:int,Upper:int,Number:str,charset:str,lang:str,vers:int):
     s_time=time.time()
     charlist=alphabet(Upper,Number,charset,lang) 
     lib=Library.strings(lang)
@@ -63,8 +62,23 @@ def Wordlister(Lenght:int,Upper:int,Number:str,charset:str,lang:str,job:int,vers
             print(lib["donein"]%str(time.time()-s_time))            
     cost= (time.time()-s_time)
     print(lib["wordlistended"]%(str(Lenght),str(cost)))    
-        
 
+"""
+def uroboros(Lenght:int,Upper:int,Number:str,charset:str,lang:str):
+    s_time=time.time()
+    charlist=alphabet(Upper,Number,charset,lang) 
+    lib=Library.strings(lang)
+    solved={}
+    with open( 'wordlist','w') as f:
+            permutations=itertools.product(charlist,repeat=Lenght)
+            for p in permutations:
+                result=forge(permutations)
+                solved[result[0]]=lib["record"]%(res[0],res[1],res[2])
+                
+            print(lib["donein"]%str(time.time()-s_time))            
+    cost= (time.time()-s_time)
+    print(lib["wordlistended"]%(str(Lenght),str(cost)))    
+"""
 def forge(candidate:str,time:str,target):
     solved=[]
     crypted=b64encode(sha1(candidate.encode()).digest()).decode()
@@ -117,7 +131,7 @@ def main():
     stat=True
     while stat:    
         job=int(input(lib['jobs']))
-        if job==1 or job==3:
+        if job==1:
             getl=True
             while getl:
                 l=int(input(lib['lenght']))
@@ -135,11 +149,11 @@ def main():
                     getn=False               
             getmvl=True
             while getmvl:
-                v=int(input(lib['mvl']) )  
+                v=int(input(lib["wlv"]))  
                 if v==1 or v==2:
                     getmvl=False                  
-            cs=str(input(lib['charlist']) )  
-            Wordlister(l,u,n,cs,lang,job,v)
+            cs=str(input(lib["charlist"]) ) 
+            Wordlister(l,u,n,cs,lang,v)
         elif job==2:
             getkeys=True
             while getkeys:
