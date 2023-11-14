@@ -30,30 +30,58 @@ def Wordlister(Lenght:int,Upper:int,Number:str,charset:str,lang:str):
                 print(lib["donein"]%str(time.time()-s_time))            
             os.remove('wordlist')
             os.rename('temp.txt','wordlist')
-
     cost= (time.time()-s_time)
-    print(lib["wordlistended"]%(str(Lenght),str(cost)))
+    print(lib["wordlistended"]%(str(Lenght),str(cost))) 
 """
 
-def Wordlister(Lenght:int,Upper:int,Number:str,charset:str,lang:str):
+#V2
+def Wordlister(Lenght:int,Upper:int,Number:str,charset:str,lang:str,job:int,vers:int):
     s_time=time.time()
     charlist=alphabet(Upper,Number,charset,lang) 
     lib=Library.strings(lang)
-    with open( 'wordlist','w') as f:
-        permutations=list(itertools.permutations(charlist,Lenght))
-        for p in permutations:
-            f.writelines(''.join(p)+"\n")    
-        print(lib["donein"]%str(time.time()-s_time))            
+    if vers==1:    
+        for i in range(Lenght):
+            if i==0:
+               with open( 'wordlist','w') as f:
+                f.write(','.join(charlist))
+            else:
+                print(lib["wordliststatus"]%i)
+                with open( 'temp.txt','w') as t: 
+                    with open( 'wordlist','r') as f:
+                        for s in f.read().split(','):
+                            if s!="":
+                                for c in charlist:
+                                    t.write((str(s)+str(c))+',')
+                    print(lib["donein"]%str(time.time()-s_time))            
+                os.remove('wordlist')
+                os.rename('temp.txt','wordlist')
+    elif vers==2:
+        with open( 'wordlist','w') as f:
+            permutations=itertools.product(charlist,repeat=Lenght)
+            for p in permutations:
+                f.writelines(''.join(p)+"\n")    
+            print(lib["donein"]%str(time.time()-s_time))            
     cost= (time.time()-s_time)
-    print(lib["wordlistended"]%(str(Lenght),str(cost)))
+    print(lib["wordlistended"]%(str(Lenght),str(cost)))    
+        
 
+def forge(candidate:str,time:str,target):
+    solved=[]
+    crypted=b64encode(sha1(candidate.encode()).digest()).decode()
+    if crypted not in solved.keys(): 
+        for key,value in target.items():                        
+             if crypted==key:
+                 cost=time.time()
+                 del target[key]
+                 solved.append(key,candidate,str(time-time.time()))
+    return solved
 
 def BruteForcer(target:str,lang:str):
     lib=Library.strings(lang)
     if os.path.isfile(target)!=True:
         print(lib['terminated'])
     else:
-        targetdictionary=passfileconverter(target)
+        targets=passfileconverter(target)
         
     if os.path.isfile("wordlist")!=True:
         print(lib['fnf'])
@@ -63,22 +91,11 @@ def BruteForcer(target:str,lang:str):
     with open("wordlist","r") as wlist:
         s_time=time.time()        
         for candidate in wlist.read().split(','):
-            crypted=b64encode(sha1(candidate.encode()).digest()).decode()
-            if crypted in solved.keys():
-                break
-            """ V1
-            with open( target, 'r') as input_file:
-                for record in input_file:
-                    (key,hashval) =record.split(":{SHA}")
-                    hashval=hashval.replace("\n","")
-            """
-            for key,value in targetdictionary.items():                        
-                    if crypted==key:
-                        cost= (time.time()-s_time)
-                        del targetdictionary[key]
-                        solved[crypted]=lib["record"]%(key,candidate,str(cost))
-                        print(lib["found"])
-                        break       
+            res=forge(candidate,s_time,targets)
+            if res.coun>0:
+                for result in res:
+                    del targets[key]
+                    solved[result[0]]=lib["record"]%(res[0],res[1],res[2])
         print(lib["Cc"]) 
         with open ("cracked.txt","w") as cr:
             for key,value in solved.items():             
@@ -100,7 +117,7 @@ def main():
     stat=True
     while stat:    
         job=int(input(lib['jobs']))
-        if job==1:
+        if job==1 or job==3:
             getl=True
             while getl:
                 l=int(input(lib['lenght']))
@@ -115,11 +132,14 @@ def main():
             while getn:
                 n=str(input(lib['numbers']) )  
                 if n!="":
-                    getn=False                  
-            getcs=True
+                    getn=False               
+            getmvl=True
+            while getmvl:
+                v=int(input(lib['mvl']) )  
+                if v==1 or v==2:
+                    getmvl=False                  
             cs=str(input(lib['charlist']) )  
-
-            Wordlister(l,u,n,cs,lang)
+            Wordlister(l,u,n,cs,lang,job,v)
         elif job==2:
             getkeys=True
             while getkeys:

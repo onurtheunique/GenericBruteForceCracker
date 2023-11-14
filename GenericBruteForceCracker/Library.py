@@ -1,6 +1,7 @@
 def strings(lang:str):
     if lang.upper()=="TURK":
-        DictTR={"jobs":"Wordlist oluşturmak için 1.\nBrute Force Saldırısı başlatmak için 2.\nÇıkış 0.\nSeçimizi giriniz.\n",
+        DictTR={"jobs":"Wordlist oluşturmak için 1.\nBrute Force Saldırısı başlatmak için 2\nWordlist kullanmadan işlem yapmak için 3\n\nÇıkış 0.\nSeçimizi giriniz.\n",
+                "wlv":"Wordlist üetim yönteminizi tercih ediniz.\nYavaş Yöntem için 1\n Hızlı yöntem için 2(Geliştirme)\n",
                 "lenght":"Parola uzunluğu:\n",
                 "updown":"Sadece küçük harf için,1.\nSadece BÜYÜKHARF için,2.\nBüYüK ve KüÇüK karakterler için,3.\n",
                 "numbers":"Parola sayı içeriyor mu? Evet/Hayır\n",
@@ -17,7 +18,8 @@ def strings(lang:str):
                 "terminated":"Dosya Bulunamadı!\nProgram Durduruldu....\n"}
         return DictTR
     elif lang.upper()=="ENG":
-        DictENG={"jobs":"To create a wordlist, type 1.\nTo initiate brute force, type 2.\nTo exit the program, type 0.\nEnter your choice:.\n",
+        DictENG={"jobs":"To create a wordlist, type 1.\nTo initiate bruteforce, type 2.\nTo initiate bruteforce without a wordlis 3\nTo exit the program, type 0.\nEnter your choice:.\n",
+                "wlv":"Please choose your method of wordlist generation.\nFor the Slow Method, press 1\nFor the Fast Method, press 2 (Development).\n",
                  "lenght":"The length of the password to be generated:\n",
                  "updown":"For only lowercase letters, type 1.\nFor only uppercase letters, type 2.\nFor a combination of both uppercase and lowercase letters, type 3.\n",
                  "numbers":"Does the password include a number? Yes/No\n",
