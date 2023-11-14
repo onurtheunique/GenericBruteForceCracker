@@ -8,31 +8,7 @@ import os
 from Helper import alphabet, passfileconverter
 import Library
 from hashlib import sha1 
-from base64 import b64encode 
-
-"""
-def Wordlister(Lenght:int,Upper:int,Number:str,charset:str,lang:str):
-    s_time=time.time()
-    charlist=alphabet(Upper,Number,charset,lang) 
-    lib=Library.strings(lang)
-    for i in range(Lenght):
-        if i==0:
-           with open( 'wordlist','w') as f:
-            f.write(','.join(charlist))
-        else:
-            print(lib["wordliststatus"]%i)
-            with open( 'temp.txt','w') as t: 
-                with open( 'wordlist','r') as f:
-                    for s in f.read().split(','):
-                        if s!="":
-                            for c in charlist:
-                                t.write((str(s)+str(c))+',')
-                print(lib["donein"]%str(time.time()-s_time))            
-            os.remove('wordlist')
-            os.rename('temp.txt','wordlist')
-    cost= (time.time()-s_time)
-    print(lib["wordlistended"]%(str(Lenght),str(cost))) 
-"""
+import base64 
 
 def Wordlister(Lenght:int,Upper:int,Number:str,charset:str,lang:str,vers:int):
     s_time=time.time()
@@ -63,25 +39,27 @@ def Wordlister(Lenght:int,Upper:int,Number:str,charset:str,lang:str,vers:int):
     cost= (time.time()-s_time)
     print(lib["wordlistended"]%(str(Lenght),str(cost)))    
 
-"""
-def uroboros(Lenght:int,Upper:int,Number:str,charset:str,lang:str):
+
+def uroboros(Lenght:int,Upper:int,Number:str,charset:str,lang:str,name:str):
     s_time=time.time()
     charlist=alphabet(Upper,Number,charset,lang) 
     lib=Library.strings(lang)
-    solved={}
+    solved=[]
     with open( 'wordlist','w') as f:
             permutations=itertools.product(charlist,repeat=Lenght)
             for p in permutations:
-                result=forge(permutations)
-                solved[result[0]]=lib["record"]%(res[0],res[1],res[2])
-                
-            print(lib["donein"]%str(time.time()-s_time))            
+                forged=forge(p,s_time,name)
+                if forged.count()>0:
+                    for res in forged:
+                        solved.append(res)     
     cost= (time.time()-s_time)
-    print(lib["wordlistended"]%(str(Lenght),str(cost)))    
-"""
+    print(lib["wordlistended"]%(str(Lenght),str(cost)))  
+    with open( 'solved','w') as s:
+              s.write(','.join(solved))
+
 def forge(candidate:str,time:str,target):
     solved=[]
-    crypted=b64encode(sha1(candidate.encode()).digest()).decode()
+    crypted=base64.b64encode(sha1(candidate.encode()).digest()).decode()
     if crypted not in solved.keys(): 
         for key,value in target.items():                        
              if crypted==key:
@@ -114,8 +92,7 @@ def BruteForcer(target:str,lang:str):
         with open ("cracked.txt","w") as cr:
             for key,value in solved.items():             
                 cr.writelines(key+':'+value)
-    
-
+   
 def langselector():
        flg=True
        while flg:
@@ -131,7 +108,7 @@ def main():
     stat=True
     while stat:    
         job=int(input(lib['jobs']))
-        if job==1:
+        if job==1 or job==3:
             getl=True
             while getl:
                 l=int(input(lib['lenght']))
@@ -146,14 +123,24 @@ def main():
             while getn:
                 n=str(input(lib['numbers']) )  
                 if n!="":
-                    getn=False               
-            getmvl=True
-            while getmvl:
-                v=int(input(lib["wlv"]))  
-                if v==1 or v==2:
-                    getmvl=False                  
+                    getn=False
+            if job==2:        
+                getmvl=True
+                while getmvl:
+                    v=int(input(lib["wlv"]))  
+                    if v==1 or v==2:
+                        getmvl=False                  
             cs=str(input(lib["charlist"]) ) 
-            Wordlister(l,u,n,cs,lang,v)
+            if job==1:
+                Wordlister(l,u,n,cs,lang,v)
+            if job==3:
+                getkeys=True
+                while getkeys:
+                    name=str(input(lib['fileloc']))
+                    if name!="":
+                        getkeys=False
+                uroboros(l,u,n,cs,lang,name)
+                
         elif job==2:
             getkeys=True
             while getkeys:
@@ -161,6 +148,7 @@ def main():
                 if name!="":
                     getkeys=False
             BruteForcer(name,lang)
+            
         elif job==0:
             print(lib['force'])
             Art.Tux()
