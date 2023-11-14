@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from genericpath import isfile
-from itertools import product
+import itertools
 from math import fabs
 import Art
 import time
@@ -10,7 +10,7 @@ import Library
 from hashlib import sha1 
 from base64 import b64encode 
 
-
+"""
 def Wordlister(Lenght:int,Upper:int,Number:str,charset:str,lang:str):
     s_time=time.time()
     charlist=alphabet(Upper,Number,charset,lang) 
@@ -27,10 +27,23 @@ def Wordlister(Lenght:int,Upper:int,Number:str,charset:str,lang:str):
                         if s!="":
                             for c in charlist:
                                 t.write((str(s)+str(c))+',')
-                print(lib["donein"]%str(s_time-(time.time())))            
+                print(lib["donein"]%str(time.time()-s_time))            
             os.remove('wordlist')
             os.rename('temp.txt','wordlist')
 
+    cost= (time.time()-s_time)
+    print(lib["wordlistended"]%(str(Lenght),str(cost)))
+"""
+
+def Wordlister(Lenght:int,Upper:int,Number:str,charset:str,lang:str):
+    s_time=time.time()
+    charlist=alphabet(Upper,Number,charset,lang) 
+    lib=Library.strings(lang)
+    with open( 'wordlist','w') as f:
+        permutations=list(itertools.permutations(charlist,Lenght))
+        for p in permutations:
+            f.writelines(''.join(p)+"\n")    
+        print(lib["donein"]%str(time.time()-s_time))            
     cost= (time.time()-s_time)
     print(lib["wordlistended"]%(str(Lenght),str(cost)))
 

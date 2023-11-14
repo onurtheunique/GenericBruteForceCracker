@@ -31,7 +31,7 @@ def alphabet(Upper:int,Number:str,charset:str,lang:str):
             alphabet.append(c.upper())
     if str.upper(Number)=='YES' or str.upper(Number)=='EVET' :
         for i in range(10):
-            alphabet.append(i)
+            alphabet.append(str(i))
     return alphabet
 def passfileconverter(file:str):
     dictionary={}
