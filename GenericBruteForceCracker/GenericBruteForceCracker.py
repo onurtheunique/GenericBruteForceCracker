@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from asyncio.windows_events import NULL
 from genericpath import isfile
 import itertools
 from math import fabs
@@ -9,6 +10,7 @@ from Helper import alphabet, passfileconverter
 import Library
 from hashlib import sha1 
 import base64 
+from glob import glob
 
 def Wordlister(Lenght:int,Upper:int,Number:str,charset:str,lang:str,vers:int):
     s_time=time.time()
@@ -37,9 +39,7 @@ def Wordlister(Lenght:int,Upper:int,Number:str,charset:str,lang:str,vers:int):
                 f.writelines(''.join(p)+"\n")    
             print(lib["donein"]%str(time.time()-s_time))            
     cost= (time.time()-s_time)
-    print(lib["wordlistended"]%(str(Lenght),str(cost)))    
-
-
+    print(lib["wordlistended"]%(str(Lenght),str(cost)))        
 def uroboros(Lenght:int,Upper:int,Number:str,charset:str,lang:str,name:str):
     s_time=time.time()
     charlist=alphabet(Upper,Number,charset,lang) 
@@ -56,7 +56,6 @@ def uroboros(Lenght:int,Upper:int,Number:str,charset:str,lang:str,name:str):
     print(lib["wordlistended"]%(str(Lenght),str(cost)))  
     with open( 'solved','w') as s:
               s.write(','.join(solved))
-
 def forge(candidate:str,stime:str,target,lang:str):
     lib=Library.strings(lang)
     crypted=base64.b64encode(sha1(candidate.encode()).digest()).decode()
@@ -67,25 +66,23 @@ def forge(candidate:str,stime:str,target,lang:str):
                 cr.write(key+"="+candidate+':'+str(cost)+"\n")
                 print(lib["found"])
 
-
-
-
 def BruteForcer(target:str,lang:str):
     lib=Library.strings(lang)
-    if os.path.isfile(target)!=True:
-        print(lib['terminated'])
-        input()
-    else:
-        targets=passfileconverter(target)    
-    if os.path.isfile("wordlist")!=True:
-        print(lib['fnf'])       
-    with open("wordlist","r") as wlist:
-        s_time=time.time()        
-        for candidate in wlist.read().split(","):
-            forge(candidate,s_time,targets,lang)      
+    targets=passfileconverter(target)    
+    filesready=True
+    while filesready:
+        worlists=glob(os.getcwd()+"\\Wordlist\\")
+        if len(worlists)>0:
+            filesready=False
+        else:
+            print(lib['fnf'])   
+    for wordlist in worlists:       
+        with open(wordlist,"r") as wlist:
+            s_time=time.time()        
+            for candidate in wlist.read().split(","):
+                forge(candidate,s_time,targets,lang)      
     print(lib["Cc"])
- 
-   
+    
 def langselector():
        flg=True
        while flg:
@@ -138,7 +135,7 @@ def main():
             getkeys=True
             while getkeys:
                 name=str(input(lib['fileloc']))
-                if name!="":
+                if name!="" and os.path.isfile("/"+name)!=True:        
                     getkeys=False
             BruteForcer(name,lang)
             
