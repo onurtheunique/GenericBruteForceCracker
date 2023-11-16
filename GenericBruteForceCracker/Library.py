@@ -2,7 +2,7 @@ def strings(lang:str):
     if lang.upper()=="TURK":
         DictTR={#"jobs":"Wordlist oluşturmak için 1.\nBrute Force Saldırısı başlatmak için 2\n\nÇıkış 0.\nSeçimizi giriniz.\n",
                 "jobs":"Wordlist oluşturmak için 1.\nBrute Force Saldırısı başlatmak için 2\nWordlist kullanmadan işlem yapmak için 3\n\nÇıkış 0.\nSeçimizi giriniz.\n",
-                "wlv":"Wordlist üetim yönteminizi tercih ediniz.\nYavaş Yöntem için 1\n Hızlı yöntem için 2(Geliştirme)\n",
+                "wlv":"Wordlist üetim yönteminizi tercih ediniz.\nYavaş Yöntem için 1\nHızlı yöntem için 2(Geliştirme)\n",
                 "lenght":"Parola uzunluğu:\n",
                 "updown":"Sadece küçük harf için,1.\nSadece BÜYÜKHARF için,2.\nBüYüK ve KüÇüK karakterler için,3.\n",
                 "numbers":"Parola sayı içeriyor mu? Evet/Hayır\n",

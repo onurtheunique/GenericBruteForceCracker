@@ -57,41 +57,34 @@ def uroboros(Lenght:int,Upper:int,Number:str,charset:str,lang:str,name:str):
     with open( 'solved','w') as s:
               s.write(','.join(solved))
 
-def forge(candidate:str,time:str,target):
-    solved=[]
+def forge(candidate:str,stime:str,target,lang:str):
+    lib=Library.strings(lang)
     crypted=base64.b64encode(sha1(candidate.encode()).digest()).decode()
-    if crypted not in solved.keys(): 
-        for key,value in target.items():                        
-             if crypted==key:
-                 cost=time.time()
-                 del target[key]
-                 solved.append(key,candidate,str(time-time.time()))
-    return solved
+    for key,value in target.items():                        
+        if crypted==key:
+            cost=time.time()-stime
+            with open ("cracked.txt","a") as cr:
+                cr.write(key+"="+candidate+':'+str(cost)+"\n")
+                print(lib["found"])
+
+
+
 
 def BruteForcer(target:str,lang:str):
     lib=Library.strings(lang)
     if os.path.isfile(target)!=True:
         print(lib['terminated'])
+        input()
     else:
-        targets=passfileconverter(target)
-        
+        targets=passfileconverter(target)    
     if os.path.isfile("wordlist")!=True:
-        print(lib['fnf'])
-        
-    solved={}
-    
+        print(lib['fnf'])       
     with open("wordlist","r") as wlist:
         s_time=time.time()        
-        for candidate in wlist.read().split(','):
-            res=forge(candidate,s_time,targets)
-            if res.coun>0:
-                for result in res:
-                    del targets[key]
-                    solved[result[0]]=lib["record"]%(res[0],res[1],res[2])
-        print(lib["Cc"]) 
-        with open ("cracked.txt","w") as cr:
-            for key,value in solved.items():             
-                cr.writelines(key+':'+value)
+        for candidate in wlist.read().split(","):
+            forge(candidate,s_time,targets,lang)      
+    print(lib["Cc"])
+ 
    
 def langselector():
        flg=True
@@ -124,7 +117,7 @@ def main():
                 n=str(input(lib['numbers']) )  
                 if n!="":
                     getn=False
-            if job==2:        
+            if job==1:
                 getmvl=True
                 while getmvl:
                     v=int(input(lib["wlv"]))  
