@@ -70,17 +70,19 @@ def BruteForcer(target:str,lang:str):
     lib=Library.strings(lang)
     targets=passfileconverter(target)    
     filesready=True
+    path=os.getcwd()+"\\Wordlists\\"
     while filesready:
-        worlists=glob(os.getcwd()+"\\Wordlist\\")
+        worlists=glob(path)
         if len(worlists)>0:
             filesready=False
         else:
-            print(lib['fnf'])   
-    for wordlist in worlists:       
-        with open(wordlist,"r") as wlist:
-            s_time=time.time()        
-            for candidate in wlist.read().split(","):
-                forge(candidate,s_time,targets,lang)      
+            print(lib['fnf']) 
+    files=os.listdir(path)
+    for file in files:    
+        s_time=time.time()      
+        with open ((path+file),'r') as wordlist:
+           for candidate in wordlist.read().split(","):
+            forge(candidate,s_time,targets,lang)      
     print(lib["Cc"])
     
 def langselector():
