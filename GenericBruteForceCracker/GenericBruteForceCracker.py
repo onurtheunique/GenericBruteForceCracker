@@ -73,6 +73,7 @@ def BruteForcer(target:str,lang:str):
     targets=passfileconverter(target)    
     filesready=True
     path=os.getcwd()+"\\Wordlists\\"
+    trycount=0
     while filesready:
         worlists=glob(path)
         if len(worlists)>0:
@@ -84,8 +85,9 @@ def BruteForcer(target:str,lang:str):
     for file in files:               
         with open ((path+file),'r') as wordlist:
            for candidate in wordlist.read().split(","):
-            forge(candidate,s_time,targets,lang)      
-    print(lib["Cc"]%(str(time.time()-s_time)))
+            forge(candidate,s_time,targets,lang) 
+            trycount=trycount+1
+    print(lib["Cc"]%(str(time.time()-s_time)),str(trycount))
     
 def langselector():
        flg=True

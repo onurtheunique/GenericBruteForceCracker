@@ -11,7 +11,7 @@ def strings(lang:str):
                 "force":"Güç Seninle Olsun",
                 "found":"Parola bulundu",
                 "fnf":"Dosya Bulunamadı!\n",
-                "Cc":"Kaba Kuvvet %s saniyede sona erdi\n",
+                "Cc":"Kaba Kuvvet %s saniyede %s deneme ile sona erdi\n",
                 "record":"Kullanıcı: %s Parola: %s süre: %s\n",
                 "wordliststatus":"%s karakter adımı oluşturuluyor \n",
                 "wordlistended":"Kelime listesi  %s karakter ile  %s saniyede yaratıldı\n",
@@ -35,7 +35,7 @@ def strings(lang:str):
                 "wordlistended":"Wordlist with %s chars created in %s seconts\n",
                  "terminated":"File not found!\nProgram terminated....\n",              
                  "donein":"Done! in %s seconds\n",
-                 "Cc":"Brute Force Ended in %s seconds\n"}
+                 "Cc":"Brute Force Ended in %s seconds with %s tries\n"}
         return DictENG
     
 def charset(lang:str):
