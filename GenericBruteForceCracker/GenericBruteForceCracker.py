@@ -58,6 +58,8 @@ def uroboros(Lenght:int,Upper:int,Number:str,charset:str,lang:str,name:str):
               s.write(','.join(solved))
 def forge(candidate:str,stime:str,target,lang:str):
     lib=Library.strings(lang)
+    if "\n" in candidate:
+        candidate=candidate.replace("\n",'')
     crypted=base64.b64encode(sha1(candidate.encode()).digest()).decode()
     for key,value in target.items():                        
         if crypted==key:
@@ -78,12 +80,12 @@ def BruteForcer(target:str,lang:str):
         else:
             print(lib['fnf']) 
     files=os.listdir(path)
-    for file in files:    
-        s_time=time.time()      
+    s_time=time.time()   
+    for file in files:               
         with open ((path+file),'r') as wordlist:
            for candidate in wordlist.read().split(","):
             forge(candidate,s_time,targets,lang)      
-    print(lib["Cc"])
+    print(lib["Cc"]%(str(time.time()-s_time)))
     
 def langselector():
        flg=True
@@ -143,7 +145,7 @@ def main():
             
         elif job==0:
             print(lib['force'])
-            Art.Tux()
+            Art.yoda()
             stat=False
             break
             
