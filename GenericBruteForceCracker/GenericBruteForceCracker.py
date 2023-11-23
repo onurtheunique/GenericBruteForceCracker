@@ -65,7 +65,7 @@ def forge(candidate:str,stime:str,target,lang:str):
         if crypted==key:
             cost=time.time()-stime
             with open ("cracked.txt","a") as cr:
-                cr.write(key+"="+candidate+':'+str(cost)+"\n")
+                cr.write(key+candidate+':'+str(cost)+"\n")
                 print(lib["found"])
 
 def BruteForcer(target:str,lang:str):
@@ -79,15 +79,17 @@ def BruteForcer(target:str,lang:str):
         if len(worlists)>0:
             filesready=False
         else:
-            print(lib['fnf']) 
+            print(lib['fnf'])
+            input()
     files=os.listdir(path)
     s_time=time.time()   
     for file in files:               
         with open ((path+file),'r') as wordlist:
+           print(lib["workingonfile"]%(file))
            for candidate in wordlist.read().split(","):
             forge(candidate,s_time,targets,lang) 
             trycount=trycount+1
-    print(lib["Cc"]%(str(time.time()-s_time)),str(trycount))
+    print(lib["Cc"]%(str(time.time()-s_time),str(trycount)))
     
 def langselector():
        flg=True

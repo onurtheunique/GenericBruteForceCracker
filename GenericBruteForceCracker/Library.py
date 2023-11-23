@@ -15,6 +15,7 @@ def strings(lang:str):
                 "record":"Kullanıcı: %s Parola: %s süre: %s\n",
                 "wordliststatus":"%s karakter adımı oluşturuluyor \n",
                 "wordlistended":"Kelime listesi  %s karakter ile  %s saniyede yaratıldı\n",
+                 "workingonfile":"%s listesi kullanılıyor\n",
                 "donein":"işlem %s saniyede tamamlandı \n",
                 "terminated":"Dosya Bulunamadı!\nProgram Durduruldu....\n"}
         return DictTR
@@ -35,6 +36,7 @@ def strings(lang:str):
                 "wordlistended":"Wordlist with %s chars created in %s seconts\n",
                  "terminated":"File not found!\nProgram terminated....\n",              
                  "donein":"Done! in %s seconds\n",
+                 "workingonfile":"working on %s list\n",
                  "Cc":"Brute Force Ended in %s seconds with %s tries\n"}
         return DictENG
     
